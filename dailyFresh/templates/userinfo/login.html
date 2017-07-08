@@ -1,0 +1,105 @@
+{%extends 'base.html'%}
+{%block head%}
+<script type="text/javascript" src="/static/js/jquery-1.12.4.min.js"></script>
+<script>
+	$(function () {
+	    var uname_ok = false;
+	    var upwd_ok = false;
+		$('#uname').blur(function () {
+			var len = $(this).val().length;
+
+		if(len<5||len>20)
+		{
+			$('.user_error').show();
+			uname_ok = false;
+		}
+		else {
+            $.get('/user/login_yz/',{'name': $('#uname').val()}, function (data) {
+                if (data.count < 1) {
+                    $('.user_error').html('用户名不存在,请注册').show();
+                    uname_ok = false;
+                }
+                else {
+                    $('.user_error').hide();
+                    uname_ok = true;
+                }
+            })
+        }
+		});
+
+		$('#upwd').blur(function () {
+			var len = $(this).val().length;
+		if(len<8||len>20)
+		{
+			$('.pwd_error').show();
+			upwd_ok = false;
+		}
+		else
+		{
+			$('.pwd_error').hide();
+			upwd_ok = true
+		}
+        });
+
+
+		$('#submit').submit(function () {
+		    $('#uname').blur();
+		    $('#upwd').blur();
+			if(uname_ok == true && upwd_ok == true){
+		   			return true;
+			}
+			else {
+			    return false;
+			}
+        });
+
+		if('{{context}}' == '0'){
+		    $('#uname').val("{{name}}");
+		    $('.pwd_error').html('密码错误,请重新输入').show();
+		}
+
+
+    })
+
+</script>
+
+
+{%endblock head%}
+
+
+{%block body%}
+
+	<div class="login_top clearfix">
+		<a href="../index.html" class="login_logo"><img src="/static/images/logo02.png"></a>
+	</div>
+
+	<div class="login_form_bg">
+		<div class="login_form_wrap clearfix">
+			<div class="login_banner fl"></div>
+			<div class="slogan fl">日夜兼程 · 急速送达</div>
+			<div class="login_form fr">
+				<div class="login_title clearfix">
+					<h1>用户登录</h1>
+					<a href="/user/register/">立即注册</a>
+				</div>
+				<div class="form_input">
+					<form method="post" action="/user/login_pwd_yz/">
+						{%csrf_token%}
+						<input type="text" name="uname" class="name_input" id='uname' placeholder="请输入用户名">
+						<div class="user_error">用户名格式错误</div>
+						<input type="password" name="upwd" class="pass_input" id='upwd'placeholder="请输入密码">
+						<div class="pwd_error">密码格式错误</div>
+						<div class="more_input clearfix">
+							<input type="checkbox" name="">
+							<label>记住用户名</label>
+							<a href="#">忘记密码</a>
+						</div>
+						<input type="submit" name="" value="登录" class="input_submit" id="submit">
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	{%endblock body%}
+	
