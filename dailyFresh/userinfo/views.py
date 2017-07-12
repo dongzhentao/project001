@@ -3,6 +3,7 @@ from django.shortcuts import render, redirect
 from models import *
 from hashlib import sha1
 from django.http import JsonResponse, HttpResponse
+from goods.models import GoodsInfo
 from middleware import *
 
 
@@ -117,7 +118,15 @@ def user_order(request):
 @logined
 def user_center(request):
     name = request.session.get('name')
-    return render(request, 'userinfo/user_center_info.html',{'name': name, 'title': '个人中心'})
+    history = request.COOKIES['history'].split(',')
+    goods = []
+    for id in history:
+        history_goods = GoodsInfo.objects.get(id=id)
+        goods.append(history_goods)
+    context = {'name': name, 'title': '个人中心','goods':goods}
+
+    print history
+    return render(request, 'userinfo/user_center_info.html',context)
 
 
 

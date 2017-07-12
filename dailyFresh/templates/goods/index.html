@@ -1,0 +1,76 @@
+{%extends 'base_goods.html'%}
+
+  {%block goods%}
+	<div class="navbar_con">
+		<div class="navbar">
+			<h1 class="fl">全部商品分类</h1>
+			<ul class="navlist fl">
+				<li><a href="">首页</a></li>
+				<li class="interval">|</li>
+				<li><a href="">手机生鲜</a></li>
+				<li class="interval">|</li>
+				<li><a href="">抽奖</a></li>
+			</ul>
+		</div>
+	</div>
+
+	<div class="center_con clearfix">
+		<ul class="subnav fl">
+			<li><a href="/goodslist/1_1/" class="fruit">新鲜水果</a></li>
+			<li><a href="/goodslist/2_1/" class="seafood">海鲜水产</a></li>
+			<li><a href="/goodslist/3_1//" class="meet">猪牛羊肉</a></li>
+			<li><a href="/goodslist/4_1/" class="egg">禽类蛋品</a></li>
+			<li><a href="/goodslist/5_1/" class="vegetables">新鲜蔬菜</a></li>
+			<li><a href="/goodslist/6_1/" class="ice">速冻食品</a></li>
+		</ul>
+		<div class="slide fl">
+			<ul class="slide_pics">
+				<li><img src="/static/images/slide.jpg" alt="幻灯片"></li>
+				<li><img src="/static/images/slide02.jpg" alt="幻灯片"></li>
+				<li><img src="/static/images/slide03.jpg" alt="幻灯片"></li>
+				<li><img src="/static/images/slide04.jpg" alt="幻灯片"></li>
+			</ul>
+			<div class="prev"></div>
+			<div class="next"></div>
+			<ul class="points"></ul>
+		</div>
+		<div class="adv fl">
+			<a href="#"><img src="/static/images/adv01.jpg"></a>
+			<a href="#"><img src="/static/images/adv02.jpg"></a>
+		</div>
+	</div>
+	{%for dict in goodslist%}
+	<div class="list_model">
+		<div class="list_title clearfix">
+			<h3 class="fl" id="model0{{forloop.counter}}">{{dict.type.ttitle}}</h3>
+			<div class="subtitle fl">
+				<span>|</span>
+				{%for hotgoods in dict.hot_list%}
+				<a href="/goodsinfo/{{hotgoods.id}}">{{hotgoods.gtitle}}</a>
+				{%endfor%}
+
+			</div>
+			<a href="/goodslist/{{dict.type.id}}_1/" class="goods_more fr" id="fruit_more">查看更多 ></a>
+		</div>
+
+		<div class="goods_con clearfix">
+			<div class="goods_banner fl"><img src="/static/images/banner01.jpg"></div>
+			<ul class="goods_list fl">
+				{%for newgoods in dict.new_list%}
+				<li>
+					<h4><a href="/goodsinfo/{{newgoods.id}}">{{newgoods.gtitle}}</a></h4>
+					<a href="/goodsinfo/{{newgoods.id}}"><img src='/static/{{newgoods.gpic}}'></a>
+					<div class="prize">¥ {{newgoods.gprice}}</div>
+				</li>
+				{%endfor%}
+
+			</ul>
+		</div>
+	</div>
+	  {%endfor%}
+
+   </div>
+
+{%endblock goods%}
+
+

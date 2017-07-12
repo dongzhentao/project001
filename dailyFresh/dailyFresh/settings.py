@@ -15,7 +15,6 @@ import os
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
-
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.8/howto/deployment/checklist/
 
@@ -27,7 +26,6 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
-
 # Application definition
 
 INSTALLED_APPS = (
@@ -38,9 +36,11 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'cart',
-    'list',
+    'goods',
     'userinfo',
-    'order'
+    'order',
+    'tinymce',
+    'haystack'
 )
 
 MIDDLEWARE_CLASSES = (
@@ -75,7 +75,6 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'dailyFresh.wsgi.application'
 
-
 # Database
 # https://docs.djangoproject.com/en/1.8/ref/settings/#databases
 
@@ -91,7 +90,6 @@ DATABASES = {
     }
 }
 
-
 # Internationalization
 # https://docs.djangoproject.com/en/1.8/topics/i18n/
 
@@ -105,7 +103,6 @@ USE_L10N = True
 
 USE_TZ = True
 
-
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.8/howto/static-files/
 
@@ -113,3 +110,21 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'static')
 ]
+
+MEDIA_ROOT = os.path.join(BASE_DIR, 'static')
+
+TINYMCE_DEFAULT_CONFIG = {
+    'theme': 'advanced',
+    'width': 600,
+    'height': 400,
+}
+
+HAYSTACK_CONNECTIONS = {
+    'default': {
+        'ENGINE': 'haystack.backends.whoosh_cn_backend.WhooshEngine',
+        'PATH': os.path.join(BASE_DIR, 'whoosh_index'),
+    }
+}
+
+HAYSTACK_SIGNAL_PROCESSOR = 'haystack.signals.RealtimeSignalProcessor'
+HAYSTACK_SEARCH_RESULTS_PER_PAGE = 12

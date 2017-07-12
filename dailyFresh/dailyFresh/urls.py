@@ -17,6 +17,10 @@ from django.conf.urls import include, url
 from django.contrib import admin
 
 urlpatterns = [
+    # url(r'^search/', include('haystack.urls')),
     url(r'^admin/', include(admin.site.urls)),
-    url(r'user/', include('userinfo.urls'))
+    url(r'^tinymce/', include('tinymce.urls')),
+    url(r'user/', include('userinfo.urls')),
+    url(r'', include('goods.urls')),
+
 ]
