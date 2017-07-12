@@ -1,0 +1,71 @@
+{%extends 'base_goods.html'%}
+{%block script2%}
+<script>
+
+</script>
+{%endblock script2%}
+ {%block goods%}
+
+	<div class="navbar_con">
+		<div class="navbar clearfix">
+			<div class="subnav_con fl">
+				<h1>全部商品分类</h1>
+				<span></span>
+				<ul class="subnav">
+					<li><a href="/goodslist/1_1/" class="fruit">新鲜水果</a></li>
+					<li><a href="/goodslist/2_1/" class="seafood">海鲜水产</a></li>
+					<li><a href="/goodslist/3_1//" class="meet">猪牛羊肉</a></li>
+					<li><a href="/goodslist/4_1/" class="egg">禽类蛋品</a></li>
+					<li><a href="/goodslist/5_1/" class="vegetables">新鲜蔬菜</a></li>
+					<li><a href="/goodslist/6_1/" class="ice">速冻食品</a></li>
+				</ul>
+			</div>
+			<ul class="navlist fl">
+				<li><a href="">首页</a></li>
+				<li class="interval">|</li>
+				<li><a href="">手机生鲜</a></li>
+				<li class="interval">|</li>
+				<li><a href="">抽奖</a></li>
+			</ul>
+		</div>
+	</div>
+	<div class="main_wrap clearfix">
+
+			<ul class="goods_type_list clearfix">
+				{%for info in page%}
+				<li>
+					<a href="/goodsinfo/{{info.object.id}}"><img src="/static/{{info.object.gpic}}/"></a>
+					<h4><a href="/goodsinfo/{{info.id}}">{{info.object.gtitle}}</a></h4>
+					<div class="operate">
+						<span class="prize">￥{{info.object.gprice}}</span>
+						<span class="unit">{{info.object.gprice}}/{{info.object.gunit}}</span>
+						<a href="#" class="add_goods" title="加入购物车"></a>
+					</div>
+				</li>
+				{%endfor%}
+			</ul>
+
+			<div class="pagenation">
+				{%if pnum == 1%}
+				   <a href="#"><上一页</a>
+				    {%else%}
+				    <a href="?q={{query}}&page={{pnum|add:'-1'}}" ><上一页</a>
+					{%endif%}
+
+				{%for page in pagelist%}
+
+				    {%if page == pnum %}
+				     <a href="?q={{query}}&page={{pnum}}" class="active">{{page}}</a>
+				    {%else%}
+				    <a href="?q={{query}}&page={{page}}">{{page}}</a>
+				     {%endif%}
+				{%endfor%}
+				{%if len == pnum%}
+				<a href="?q={{query}}&page={{pnum}}">下一页></a>
+				{%else%}
+				<a href="?q={{query}}&page={{pnum|add:'1'}} ">下一页></a>
+				{%endif%}
+			</div>
+		
+	</div>
+{%endblock goods%}
